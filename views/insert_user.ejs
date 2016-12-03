@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SnappyChat</title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+<div class="topbar js-topbar">
+  <div class="global-nav bg global-nav--newLoggedOut" data-section-term="top_nav">
+    <center><img src="/stylesheets/logo.jpg" alt="Twitter" height="46" width="54" ></center>
+</div>
+</div>
+<br><br><br><br><br><br><br><br><br><br>
+<div class="sheet">
+<h1 align="center">Insert User</h1><br>
+</div>
+<form action="/ins_user" method="post" class="signup" id="signup" align="center">
+<div class="textbox">
+<input id="fullname" name="fullname" type="text" autocomplete="off" value="" maxlength="20" placeholder="Full name"><br><br>
+<input id="username" name="username" type="text" autocomplete="off" maxlength="20" placeholder="Username" required="True"><br><br>
+<input id="email" type="email" name="email" autocomplete="off" value="" placeholder="Email" required="True"><br><br>
+<input id="profile_pic" name="profile_pic" type="text" autocomplete="off" maxlength="100" placeholder="profile_pic"><br><br>
+<input id="profession" name="profession" type="text" maxlength="100" placeholder="profession"><br><br>
+<input id="location" name="location" type="text" maxlength="40" placeholder="Location"><br><br>
+<input id="about" name="about" type="text" maxlength="100" placeholder="About"><br><br>
+<input id="interests" name="interests" type="text" maxlength="100" placeholder="interests"><br><br>
+<input id="account_type" name="account_type" type="text" placeholder="account_type"><br><br>
+<input id="profile_pic" name="profile_pic" type="text" autocomplete="off" maxlength="100" placeholder="profile_pic"><br><br>
+<input id="is_active" name="is_active" type="text" autocomplete="off" maxlength="100" placeholder="is_active"><br><br>
+<input id="is_active_timeline" name="is_active_timeline" type="text" autocomplete="off" maxlength="100" placeholder="is_active_timeline"><br><br>
+<button type="submit" id="sign" class="button">Insert</button><br><br>
+</div></form>
+</body>
+</html>

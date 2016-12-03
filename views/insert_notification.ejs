@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SnappyChat</title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+<div class="topbar js-topbar">
+  <div class="global-nav bg global-nav--newLoggedOut" data-section-term="top_nav">
+    <center><img src="/stylesheets/logo.jpg" alt="Twitter" height="46" width="54" ></center>
+</div>
+</div>
+<br><br><br><br><br><br><br><br><br><br>
+<div class="sheet">
+<h1 align="center">Insert notification</h1><br>
+</div>
+<form action="/ins_notification" method="post" align="center">
+<div class="textbox">
+<input id="sender" name="sender" class="signup" id="signup" type="text" maxlength="20" placeholder="Sender"><br><br>
+<input id="receiver" name="receiver" type="text" maxlength="20" placeholder="receiver" required="True"><br><br>
+<input id="type" type="text" name="type" autocomplete="off" value="" placeholder="Type" required="True"><br><br>
+<input id="data" name="data" type="text" maxlength="100" placeholder="Data"><br><br>
+<button type="submit" id="sign" class="button">Insert</button><br><br>
+</div></form>
+</body>
+</html>

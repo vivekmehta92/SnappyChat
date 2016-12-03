@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SnappyChat</title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+<div class="topbar js-topbar">
+  <div class="global-nav bg global-nav--newLoggedOut" data-section-term="top_nav">
+    <center><img src="/stylesheets/logo.jpg" alt="Twitter" height="46" width="54" ></center>
+</div>
+</div>
+<br><br><br><br><br><br><br><br><br><br>
+<div class="sheet">
+<h1 align="center">Insert Friend</h1><br>
+</div>
+<form action="/ins_friend" class="signup" id="signup" method="post" align="center">
+<div class="textbox">
+<input id="username" name="username" type="text" maxlength="20" placeholder="username" required="True"><br><br>
+<input id="friend_username" name="friend_username" type="text" maxlength="20" placeholder="friend_username" required="True"><br><br>
+<input id="added" type="text" name="added" autocomplete="off" value="false" placeholder="added" required="True"><br><br>
+<button type="submit" id="sign" class="button">Insert</button><br><br>
+</div></form>
+</body>
+</html>

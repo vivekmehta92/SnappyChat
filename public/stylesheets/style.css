@@ -6,3 +6,49 @@ body {
 a {
   color: #00B7FF;
 }
+* {
+	margin: 0;
+	padding: 0;
+}
+.topbar {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-bottom: 1px solid #e1e8ed;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1000;
+}
+.bg.global-nav {
+    background-image: url(/stylesheets/header.png);
+    background-size: 100% 100%;
+} 
+
+.global-nav {
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+    height: 46px;
+    position: relative;
+    width: 100%;
+}
+#signup .textbox input {
+    width: 372px;
+    padding: 10px;
+    font-size: 18px;
+}
+#checkuser .textbox input {
+    width: 372px;
+    padding: 10px;
+    font-size: 18px;
+}
+.button {
+    width: 396px;
+    background-color: #1da1f2;
+    box-shadow: none;
+    color: white;
+    font-size: 16px;
+    font-weight: normal;
+    padding: 12px 16px;
+    border: 0;
+}

@@ -1,8 +1,4 @@
-
-/*
- * GET users listing.
- */
-
-exports.list = function(req, res){
-  res.send("respond with a resource");
+var User = require('./model/user');
+exports.insert_user = function(req, res){
+	
 };
