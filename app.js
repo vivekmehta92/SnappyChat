@@ -10,12 +10,20 @@ var express = require('express')
   , stories = require('./routes/stories')
   , friends = require('./routes/friends')
   , notifications= require('./routes/notifications')
+  , session = require('client-sessions')
   , index = require('./routes/index')
   , mongoose = require('mongoose')
   , path = require('path');
 mongoose.connect('mongodb://localhost/snappychat');
 var app = express();
 var ejs = require("ejs");
+
+var app = express();
+app.use(session({   
+	cookieName: 'session',    
+	secret: 'snappychat',    
+	duration: 30 * 60 * 1000,
+	activeDuration: 5 * 60 * 1000,  }));
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -62,10 +70,30 @@ app.get('/friends',function(req, res){
 		   }
 	   });
 });
+
+//insert all the things into the table.
 app.post('/ins_notification',notifications.insert_notification);
 app.post('/ins_stories',stories.insert_stories);
-app.post('/ins_friends',friends.insert_friends);
+// app.post('/ins_friends',friends.insert_friends);
 app.post('/ins_user',user.insert_user);
+//All operations on friends
+//delete a friend. Like rejecting a friend request
+app.get('/delete_friend',friends.delete_friend);
+// list of pending requests of the user
+app.get('/get_unadded_friends',friends.get_unadded_friends);
+//list of friends  that are added.
+// app.get('/get_added_friends',friends.get_added_friends);
+//call when u wanna accept a friend request
+app.get('/accept_friend',friends.accept_friend);
+// call when u wanna send a friend request
+app.get('/request_friend',friends.request_friend);
+
+
+
+// app.post('/get_notification',notifications.get_notification);
+// app.post('/get_stories',stories.get_stories);
+
+// app.post('/get_user',user.get_user);
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
