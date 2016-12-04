@@ -6,7 +6,7 @@ var n_schema = mongoose.Schema({
 	n_id: {type: Number, required: true, index: true},
 	sender: String,
 	receiver: String,
-	timestamp: String,
+	date: Date,
 	notification_type: String,
 	data: String
 });

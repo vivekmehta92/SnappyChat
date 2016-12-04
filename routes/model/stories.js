@@ -10,7 +10,7 @@ var s_schema = mongoose.Schema({
 	pictures: String,
 	likes: Number,
 	comments: [String],
-	timestamp: String
+	timestamp: Date
 });
 s_schema.plugin(autoIncrement.plugin, {
 	model: 'storie',

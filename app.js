@@ -17,6 +17,7 @@ var express = require('express')
 mongoose.connect('mongodb://localhost/snappychat');
 var app = express();
 var ejs = require("ejs");
+var moment = require('moment');
 
 var app = express();
 app.use(session({   
@@ -71,22 +72,58 @@ app.get('/friends',function(req, res){
 	   });
 });
 
-//insert all the things into the table.
-app.post('/ins_notification',notifications.insert_notification);
-app.post('/ins_stories',stories.insert_stories);
-// app.post('/ins_friends',friends.insert_friends);
-app.post('/ins_user',user.insert_user);
-//All operations on friends
-//delete a friend. Like rejecting a friend request
-app.get('/delete_friend',friends.delete_friend);
-// list of pending requests of the user
-app.get('/get_unadded_friends',friends.get_unadded_friends);
-//list of friends  that are added.
-// app.get('/get_added_friends',friends.get_added_friends);
-//call when u wanna accept a friend request
-app.get('/accept_friend',friends.accept_friend);
-// call when u wanna send a friend request
+//All operations on friends.
+
+// This will get triggered when a friend request has to be sent.
 app.get('/request_friend',friends.request_friend);
+// This will get triggered when the friend request is accepted
+app.get('/accept_friend',friends.accept_friend);
+//get all of user's friends who have addedd the user
+app.get('/get_added_friends',friends.get_added_friends);
+// gets all the user's friends that did not add the user as of now
+app.get('/get_unadded_friends',friends.get_unadded_friends);
+// this is to delete friend. Perform this when the user's friend request gets rejected
+app.get('/delete_friend',friends.delete_friend);
+
+
+// All operations on User.
+
+// insert a new user.
+app.post('/ins_user',user.insert_user);
+// search if a user exists. During login
+app.get('/check_user',user.check_user);
+//change is_active user to false
+app.get('/is_active_false_user',user.is_active_false_user);
+//change is_active user to true
+app.get('/is_active_true_user',user.is_active_true_user);
+//update profile pic
+app.get('/update_profile_pic',user.update_profile_pic);
+//update visibility
+app.get('/update_visibility',user.update_visibility);
+//update thumbnail profile pic
+app.get('/update_thumbail_profile_pic',user.update_thumbail_profile_pic);
+//add interests
+app.get('/add_interests',user.add_interests);
+//search users on basis the username or interests
+app.get('/search_user',user.search_user);
+
+//All operations on notificaitons table(All chat related stuff)
+
+//Send message to another user.
+app.post('/ins_notification',notifications.insert_notification);
+//delete all messages between 2 users.
+app.get('/delete_friend',notifications.delete_friend);
+//get all of user's chat with a particular person
+app.get('/get_chat',notifications.get_chat);
+// get list of all people the user is chatting with
+app.get('/list_chats',notifications.list_chats);
+
+//All operations on stories (Timeline related stuff)
+
+//add a stories into timeline (TEXT STORY)
+app.post('/insert_text_stories',stories.insert_text_stories);
+
+
 
 
 

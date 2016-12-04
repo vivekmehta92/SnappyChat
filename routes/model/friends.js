@@ -6,7 +6,8 @@ var f_schema = mongoose.Schema({
 	f_id: {type: Number, required: true, index: true},
 	username: String,
 	friend_username: String,
-	added: String
+	added: String,
+	date: Date
 });
 f_schema.plugin(autoIncrement.plugin, {
 	model: 'friend',
