@@ -8,7 +8,8 @@ var n_schema = mongoose.Schema({
 	receiver: String,
 	date: Date,
 	notification_type: String,
-	data: String
+	data: String,
+	unread: Boolean
 });
 n_schema.plugin(autoIncrement.plugin, {
 	model: 'notification',

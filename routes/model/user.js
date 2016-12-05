@@ -10,11 +10,11 @@ var u_schema = mongoose.Schema({
 	profile_pic: { tpye: String, required: false},
 	about: {type: String, required: false},
 	interests: [String],
-	account_type: {type: Boolean, required: false},
+	account_type: {type: String, required: false},
 	profession: {type: String, required: false },
 	location: {type: String, required: false},
 	thumbnail_profile_pic: { tpye: String, required: false},
-	isActive : {type: Boolean, default: false},
+	isActive : {type: String, default: "false"},
 	is_active_timeline: {type: Boolean, default: false}
 });
 u_schema.plugin(autoIncrement.plugin, {

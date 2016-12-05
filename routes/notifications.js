@@ -48,7 +48,7 @@ exports.get_chat = function(req, res){
 
 // get list of all people the user is chatting with
 exports.list_chats = function(req, res){
-	Notification.distinct('sender', {$or: [{sender: req.param("username")}, {receiver: req.param("username")}]}).exec(function(err, users) {
+	Notification.distinct('receiver', {$or: [{sender: req.param("username"),unread: false}, {receiver: req.param("username"), unread: false}]}).exec(function(err, users) {
 		var arr1 = [];
 		if(err)
 				{
@@ -59,7 +59,7 @@ exports.list_chats = function(req, res){
 					for (var i = 0; i < users.length; i++) {
 						arr1[i] = users[i];
 					}
-					Notification.distinct('receiver', {$or: [{sender: req.param("username")}, {receiver: req.param("username")}]}).exec(function(err, users1) {
+					Notification.distinct('receiver', {receiver: req.param("username"),unread: true}).exec(function(err, users1) {
 					var user = [];
 					if(err)
 					{
@@ -67,15 +67,28 @@ exports.list_chats = function(req, res){
 					}
 					else
 					{
-						for(var i in users1){
+					
+					var array3 = uniqueArray(users1.reverse().concat(arr1.reverse()));
+					for(var i in users1){
     					if(users1[i]==req.param("username")){
         				users1.splice(i,1);
         				break;
         				}
 						}
-					res.send(users1.reverse());
+					res.send(array3);
 					}
 					});				
 				}
 	});
 };
+function uniqueArray(array) {
+    var a = array.concat();
+    for(var i=0; i<a.length; ++i) {
+        for(var j=i+1; j<a.length; ++j) {
+            if(a[i] === a[j]) 
+                a.splice(j--, 1);
+        }
+    }
+
+    return a;
+}

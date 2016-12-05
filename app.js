@@ -74,62 +74,68 @@ app.get('/friends',function(req, res){
 
 //All operations on friends.
 
-// This will get triggered when a friend request has to be sent.
+// This will get triggered when a friend request has to be sent. fields needed= username and friend_username
 app.post('/request_friend',friends.request_friend);
-// This will get triggered when the friend request is accepted
+// This will get triggered when the friend request is accepted   fields needed= username and friend_username
 app.get('/accept_friend',friends.accept_friend);
-//get all of user's friends who have addedd the user
-app.get('/get_added_friends',friends.get_added_friends);
-// gets all the user's friends that did not add the user as of now
+//get all of user's friends who have addedd the user  			 fields needed= username
+app.get('/get_added_friends',friends.get_added_friends); 
+// gets all the user's friends that did not add the user as of now  fields needed= username
 app.get('/get_unadded_friends',friends.get_unadded_friends);
-// this is to delete friend. Perform this when the user's friend request gets rejected
+// this is to delete friend. Perform this when the user's friend request gets rejected   fields needed= username and friend_username
 app.get('/delete_friend',friends.delete_friend);
 
 
 // All operations on User.
 
-// insert a new user.
+// insert a new user.     									fields needed(all not needed) fullname username email profile_pic profession location about interests account_type thumbnail_profile_pic  is_active
 app.post('/insert_user',user.insert_user);
-// search if a user exists. During login
+// search if a user exists. During login                    fields needed username
 app.get('/check_user',user.check_user);
-//change is_active user to false
-app.get('/is_active_false_user',user.is_active_false_user);
-//change is_active user to true
+//change is_active user to false                            fields needed username
+app.get('/is_active_false_user',user.is_active_false_user); 
+//change is_active user to true                             fields needed username
 app.get('/is_active_true_user',user.is_active_true_user);
-//update profile pic
+//update profile pic                                        fields needed username profile_pic
 app.get('/update_profile_pic',user.update_profile_pic);
-//update visibility
-app.get('/update_visibility',user.update_visibility);
-//update thumbnail profile pic
+//update account type                                       fields needed username account_type
+app.get('/update_account_type',user.update_account_type);
+//update thumbnail profile pic                              fields needed username thumbnail_profile_pic     
 app.get('/update_thumbail_profile_pic',user.update_thumbail_profile_pic);
-//add interests
+//add interests                                             fields needed username interests
 app.get('/add_interests',user.add_interests);
-//search users on basis the username or interests
-app.get('/search_user',user.search_user);
+//search users on basis the username                        fields needed search
+app.get('/search_user_username',user.search_user_username);
+//search users on basis the username                         fields needed search
+app.get('/search_user_email',user.search_user_email);
+//search users on basis the username                          fields needed search
+app.get('/search_user_interests',user.search_user_interests);
+
 
 //All operations on notificaitons table(All chat related stuff)
 
-//Send message to another user.
+//Send message to another user.                              fields needed sender receiver type data
 app.post('/insert_notification',notifications.insert_notification);
-//delete all messages between 2 users.
+//delete all messages between 2 users.                        fields needed username receiver
 app.get('/delete_friend',notifications.delete_friend);
-//get all of user's chat with a particular person
+//get all of user's chat with a particular person             fields needed username receiver
 app.get('/get_chat',notifications.get_chat);
-// get list of all people the user is chatting with
+// get list of all people the user is chatting with           fields needed username
 app.get('/list_chats',notifications.list_chats);
 
 //All operations on stories (Timeline related stuff)
 
-//add a stories into timeline (TEXT STORY)
-app.post('/insert_text_stories',stories.insert_text_stories);
-//post a pictures story into timeline
+//add a stories into timeline (TEXT STORY)                     fields needed username text
+app.post('/insert_text_stories',stories.insert_text_stories); 
+//post a pictures story into timeline                           fields needed username pictures
 app.get('/insert_picture_stories',stories.insert_picture_stories);
-// Like a friends story
+// Like a friends story                                             fields needed username s_id
 app.get('/like_friend_story',stories.like_friend_story);
-//add comments
+//add comments                                                      fields needed username s_id comments
 app.get('/add_comments',stories.add_comments);
-//list 1 persons timeline
+//list 1 persons timeline                                             fields needed username
 app.get('/list_timeline',stories.list_timeline);
+
 
 
 
