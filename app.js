@@ -75,7 +75,7 @@ app.get('/friends',function(req, res){
 //All operations on friends.
 
 // This will get triggered when a friend request has to be sent.
-app.get('/request_friend',friends.request_friend);
+app.post('/request_friend',friends.request_friend);
 // This will get triggered when the friend request is accepted
 app.get('/accept_friend',friends.accept_friend);
 //get all of user's friends who have addedd the user
@@ -89,7 +89,7 @@ app.get('/delete_friend',friends.delete_friend);
 // All operations on User.
 
 // insert a new user.
-app.post('/ins_user',user.insert_user);
+app.post('/insert_user',user.insert_user);
 // search if a user exists. During login
 app.get('/check_user',user.check_user);
 //change is_active user to false
@@ -110,7 +110,7 @@ app.get('/search_user',user.search_user);
 //All operations on notificaitons table(All chat related stuff)
 
 //Send message to another user.
-app.post('/ins_notification',notifications.insert_notification);
+app.post('/insert_notification',notifications.insert_notification);
 //delete all messages between 2 users.
 app.get('/delete_friend',notifications.delete_friend);
 //get all of user's chat with a particular person
@@ -122,6 +122,14 @@ app.get('/list_chats',notifications.list_chats);
 
 //add a stories into timeline (TEXT STORY)
 app.post('/insert_text_stories',stories.insert_text_stories);
+//post a pictures story into timeline
+app.get('/insert_picture_stories',stories.insert_picture_stories);
+// Like a friends story
+app.get('/like_friend_story',stories.like_friend_story);
+//add comments
+app.get('/add_comments',stories.add_comments);
+//list 1 persons timeline
+app.get('/list_timeline',stories.list_timeline);
 
 
 

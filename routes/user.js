@@ -46,7 +46,7 @@ exports.check_user = function(req, res){
 
 //change is_active user to false
 exports.is_active_false_user = function(req, res){
-  User.findByIdAndUpdate({ username : req.param("username")}, { $set: { is_active: false }}, { new: true }, function (err, results) {
+  User.update({ username : req.param("username")}, { $set: { is_active: false }}, { new: true }, function (err, results) {
   	if(err)
 	{
 	console.log(err);
@@ -61,7 +61,7 @@ exports.is_active_false_user = function(req, res){
 
 //change is_active user to true
 exports.is_active_true_user = function(req, res){
-  User.findByIdAndUpdate({ username : req.param("username")}, { $set: { is_active: true }}, { new: true }, function (err, results) {
+  User.update({ username : req.param("username")}, { $set: { is_active: true }}, { new: true }, function (err, results) {
   	if(err)
 	{
 	console.log(err);
@@ -76,7 +76,7 @@ exports.is_active_true_user = function(req, res){
 
 //update profile pic
 exports.update_profile_pic = function(req, res){
-  User.findByIdAndUpdate({ username : req.param("username")}, { $set: { profile_pic: req.param("profile_pic") }}, { new: true }, function (err, results) {
+  User.update({ username : req.param("username")}, { $set: { profile_pic: req.param("profile_pic") }}, { new: true }, function (err, results) {
   	if(err)
 	{
 	console.log(err);
@@ -91,7 +91,7 @@ exports.update_profile_pic = function(req, res){
 
 //update visibility
 exports.update_visibility = function(req, res){
-  User.findByIdAndUpdate({ username : req.param("username")}, { $set: { visibility: req.param("visibility") }}, { new: true }, function (err, results) {
+  User.update({ username : req.param("username")}, { $set: { visibility: req.param("visibility") }}, { new: true }, function (err, results) {
   	if(err)
 	{
 	console.log(err);
@@ -106,7 +106,7 @@ exports.update_visibility = function(req, res){
 
 //update thumbnail profile pic
 exports.update_thumbail_profile_pic = function(req, res){
-  User.findByIdAndUpdate({ username : req.param("username")}, { $set: { thumbnail_profile_pic: req.param("thumbnail_profile_pic") }}, { new: true }, function (err, results) {
+  User.update({ username : req.param("username")}, { $set: { thumbnail_profile_pic: req.param("thumbnail_profile_pic") }}, { new: true }, function (err, results) {
   	if(err)
 	{
 	console.log(err);

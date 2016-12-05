@@ -8,7 +8,7 @@ var friends = new Friends();
 			friends.username = req.param("username");
 			friends.friend_username = req.param("friend_username");
 			friends.added = "no";
-			friends.date = moment;
+			friends.date = moment().format();
 			friends.save(function(err, newfriend) {
 				if(err)
 					{
@@ -24,8 +24,8 @@ var friends = new Friends();
 
 // This will get triggered when the friend request is accepted
 exports.accept_friend = function(req, res){
-  Friends.findByIdAndUpdate({ username : req.param("friend_username"), friend_username :  req.param("username")}, { $set: { "added": 'yes' }}, { new: true }, function (err, results) {
-  if (err) return handleError(err);
+  Friends.update({ username : req.param("username"), friend_username :  req.param("friend_username")}, { $set: { added: 'yes' }}, { new: true }, function (err, results) {
+  if (err) console.log(err);
   // console.log("friend Added");
   // res.send(results);
   else{
@@ -50,7 +50,7 @@ exports.accept_friend = function(req, res){
 
 //get all of user's friends who have addedd him
 exports.get_added_friends = function(req, res){
-	Friends.find({$or: [{username: req.param("username"), added: { $eq: "yes" }}, {friend_username: req.param("username"), added: { $eq: "yes" }} ]}).sort({username: '1'}).exec(function(err, users) {
+	Friends.find({$or: [{username: req.param("username"), added: "yes" }, {friend_username: req.param("username"), added: { $eq: "yes" }} ]}).sort({username: '1'}).exec(function(err, users) {
 		if(err)
 				{
 				console.log(err);
@@ -89,7 +89,7 @@ exports.get_unadded_friends = function(req, res){
 
 // this is to delete friend. Perform this when the user's friend request gets rejected
 exports.delete_friend = function(req, res){
-  Friends.remove({ username : req.param.username, friend_username : req.param("friend_username") }, function (err, results) {
+  Friends.remove({ username : req.param("username"), friend_username : req.param("friend_username") }, function (err, results) {
   if (err) return handleError(err);
   console.log("friend Deleted");
   res.send(results);
