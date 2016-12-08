@@ -103,7 +103,7 @@ app.post('/insert_user',user.insert_user);
 // search if a user exists. During login                    fields needed username
 app.get('/check_user',user.check_user);
 // list all public users except his friends                 fields needed username  
-app.get('/list_other_users',user.list_users);
+app.get('/list_other_users',user.list_other_users);
 //change is_active user to false                            fields needed username
 app.get('/is_active_false_user',user.is_active_false_user); 
 //change is_active user to true                             fields needed username
