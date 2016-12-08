@@ -235,17 +235,42 @@ exports.search_user_email = function(req, res){
 };
 
 //edit user profile
-exports.edit_profile = function(req,res){
+exports.editProfile = function(req,res){
 	var username = req.param("username");
 	var phone = req.param("phone");
 	var profession = req.param("profession");
 	var about = req.param("about");
 	var location = req.param("location");
-	var image = req.param("image");
-	var account_type = req.param("account_type");
+
+	var image = req.param("image")
+	var account_type = req.param("account_type")
+	var interests = [];
+
+	if(req.param("interests").length > 0) {
+		var str_interests = req.param("interests");
+		var len = str_interests.length;
+
+		var commas = [];
+
+		for (i in str_interests) {
+			if (str_interests[i].charCodeAt() == 44) {
+				commas.push(i)
+			}
+		}
+
+		var start = 0;
+		var end = len;
+
+		for (i in commas) {
+			interests.push(str_interests.substring(start, commas[i]).trim())
+			start = Number(commas[i]) + 1;
+		}
+		interests.push(str_interests.substring(start, end).trim())
+	}
+
 	User.update({ username : req.param("username")}, { $set: { phone : req.param("phone"),
 	profession: req.param("profession"), about: req.param("about"), location: req.param("location"), profile_pic: req.param("image"),
-		account_type: req.param("account_type");
+		account_type: req.param("account_type"), interests: interests
 	}}, { new: true }, function (err, results) {
 		if(err)
 		{
@@ -253,39 +278,7 @@ exports.edit_profile = function(req,res){
 		}
 		else
 		{
-			if(req.param("interests").length > 0){
-				var str_interests = req.param("interests");
-				var interests = [];
-				var len = str_interests.length;
-
-				var commas = [];
-
-				for(i in str_interests){
-					if(str_interests[i].charCodeAt() == 44){
-						commas.push(i);
-					}
-				}
-				var start = 0;
-				var end = len;
-				for(i in commas){
-					interests.push(str_interests.substring(start,commas[i]).trim());
-					start = Number(commas[i]) + 1;
-				}
-				interests.push(str_interests.substring(start,end).trim());
-
-				for(i in interests){
-					User.update({"username": req.param("username")}, {"$push": {"interests": interests[i] }},function(err,results1){
-						if(err){
-							console.log(err);
-						}else{
-							console.log(results1);
-							res.send(results1);
-						}
-					});
-				}
-			}else{
-				res.send(results);
-			}
+			res.send(results);
 		}
 	});
 }
