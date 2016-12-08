@@ -1,5 +1,6 @@
 var Stories = require('./model/stories');
 var moment = require('moment');
+var friend = require('./model/friends')
 
 //add a stories into timeline (TEXT STORY)
 exports.insert_text_stories = function(req, res){
@@ -87,3 +88,38 @@ exports.list_timeline = function(req, res){
 				}
 	});
 };
+
+
+
+exports.get_timeline = function(req,res){
+    // friend.find({username: req.param("username"), added: "yes"}).exec(function(err, users) {
+    	friend.find({$or: [{username: req.param("username"), added: "yes" }, {friend_username: req.param("username"), added: "yes"} ]}).exec(function(err, users) {
+        if(err)
+        {
+            console.log(err);
+        }
+        else
+        {
+        	console.log(users);
+            var userFriends = [];
+            for(i in users){
+            	if(users[i].friend_username == req.param("username"))
+            	userFriends.push(users[i].username);
+            	else	
+		         userFriends.push(users[i].friend_username);
+            }
+            console.log(userFriends);
+            Stories.find({username: {$in: userFriends }}).sort({timestamp: '-1'}).exec(function(err, stories) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                console.log("stories aya");
+                    console.log(stories);
+                    res.send(stories);
+                }
+            });
+
+        }
+    });
+}

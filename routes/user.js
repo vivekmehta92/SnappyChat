@@ -1,4 +1,5 @@
 var User = require('./model/user');
+var Friends = require('./model/friends');
 
 // insert a new user.
 exports.insert_user = function(req, res){
@@ -29,17 +30,34 @@ exports.insert_user = function(req, res){
 };
 
 // list full users table
-exports.list_users = function(req, res){
-	
-	User.find({account_type: "public"}).exec(function(err, users) {
+exports.list_other_users = function(req, res){
+	Friends.find({$or: [{username: req.param("username"), added: "yes" }, {friend_username: req.param("username"), added: { $eq: "yes" }} ]}).exec(function(err, users) {
 		if(err)
 				{
 				console.log(err);
 				}
 			else
 				{
-				console.log("List all users done");
-				res.send(users);
+					var f = [];
+					for(var i in users)
+					{	
+						if(users[i].friend_username == req.param("username"))
+            			f.push(users[i].username);
+            			else	
+		         		f.push(users[i].friend_username);
+		 			}
+		 			f.push(req.param("username"));
+					User.find({account_type: "public",username : { $nin: f } }).exec(function(err, users1) {
+						if(err)
+								{
+								console.log(err);
+								}
+							else
+								{
+								console.log("List all users done");
+								res.send(users1);
+								}
+					});
 				}
 	});
 };
@@ -137,14 +155,38 @@ exports.update_thumbail_profile_pic = function(req, res){
 
 //add interests
 exports.add_interests = function(req, res){
-	User.update({"username": req.param("username")}, {"$push": {"interests": req.param("interests")}},function(err,results){
-        if(err){
-        	console.log(err)
-        }else{	
-        		console.log(results);
-				res.send(results);	
-        }
-});
+
+	var str_interests = req.param("interests");
+	var interests = [];
+	var len = str_interests.length;
+
+	var commas = [];
+
+	for(i in str_interests){
+		if(str_interests[i].charCodeAt() == 44){
+			commas.push(i)
+		}
+	}
+
+	var start = 0;
+	var end = len;
+
+	for(i in commas){
+		interests.push(str_interests.substring(start,commas[i]).trim())
+		start = Number(commas[i]) + 1;
+	}
+	interests.push(str_interests.substring(start,end).trim())
+
+	for(i in interests){
+		User.update({"username": req.param("username")}, {"$push": {"interests": interests[i] }},function(err,results){
+			if(err){
+				console.log(err)
+			}else{
+				console.log(results);
+				res.send(results);
+			}
+		});
+	}
 };
 
 //search users on basis the username

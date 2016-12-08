@@ -102,8 +102,8 @@ app.get('/delete_friend',friends.delete_friend);
 app.post('/insert_user',user.insert_user);
 // search if a user exists. During login                    fields needed username
 app.get('/check_user',user.check_user);
-// list all public user                                     no fields needed 
-app.get('/list_users',user.list_users);
+// list all public users except his friends                 fields needed username  
+app.get('/list_other_users',user.list_users);
 //change is_active user to false                            fields needed username
 app.get('/is_active_false_user',user.is_active_false_user); 
 //change is_active user to true                             fields needed username
@@ -147,6 +147,8 @@ app.get('/like_friend_story',stories.like_friend_story);
 app.get('/add_comments',stories.add_comments);
 //list 1 persons timeline                                             fields needed username
 app.get('/list_timeline',stories.list_timeline);
+//get timeline of all friends of user in order         fields needed  username
+app.get('/get_timeline', stories.get_Timeline);
 
 //All operations on Live table (live notifications)
 

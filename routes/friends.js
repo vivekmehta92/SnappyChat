@@ -67,7 +67,7 @@ exports.accept_friend = function(req, res){
 
 //get all of user's friends who have addedd him
 exports.get_added_friends = function(req, res){
-	Friends.find({$or: [{username: req.param("username"), added: "yes" }, {friend_username: req.param("username"), added: { $eq: "yes" }} ]}).sort({username: '1'}).exec(function(err, users) {
+	Friends.find({$or: [{username: req.param("username"), added: "yes" }, {friend_username: req.param("username"), added: { $eq: "yes" }} ]}).exec(function(err, users) {
 		if(err)
 				{
 				console.log(err);
