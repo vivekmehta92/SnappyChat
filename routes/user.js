@@ -235,7 +235,7 @@ exports.search_user_email = function(req, res){
 };
 
 //edit user profile
-exports.editProfile = function(req,res){
+exports.edit_profile = function(req,res){
 	var username = req.param("username");
 	var phone = req.param("phone");
 	var profession = req.param("profession");
