@@ -28,6 +28,21 @@ exports.insert_user = function(req, res){
 			});		
 };
 
+// list full users table
+exports.list_users = function(req, res){
+	User.find({account_type: "public"}).exec(function(err, users) {
+		if(err)
+				{
+				console.log(err);
+				}
+			else
+				{
+				console.log("List all users done");
+				res.send(users);
+				}
+	});
+};
+
 // search if a user exists. During login
 exports.check_user = function(req, res){
 	User.find({username: req.param("username")}).exec(function(err, users) {

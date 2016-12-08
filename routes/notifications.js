@@ -1,5 +1,6 @@
 var Notification = require('./model/notifications');
 var moment = require('moment');
+var Live = require('./model/live');
 
 //send message to another user
 exports.insert_notification = function(req, res){
@@ -7,8 +8,9 @@ exports.insert_notification = function(req, res){
 			notification.sender = req.param("sender");
 			notification.receiver = req.param("receiver");
 			notification.date = moment().format();
-			notification.type = req.param("type");
+			notification.notification_type = req.param("type");
 			notification.data = req.param("data");
+			notification.unread = true;
 			notification.save(function(err, newnotify) {
 				if(err)
 					{
@@ -16,8 +18,22 @@ exports.insert_notification = function(req, res){
 					}
 				else
 					{
-					console.log(newnotify);
-					res.send(newnotify);
+					var live = new Live();
+					live.username = req.param("receiver");
+					live.date = moment().format();
+					live.type = "notification";
+					live.data = "You have received a message from "+req.param("sender");
+					live.save(function(err, newnotifys) {
+				if(err)
+					{
+					console.log(err);
+					}
+				else
+					{
+					console.log(newnotifys);
+					res.send(newnotifys);
+					}
+					});				
 					}
 			});		
 };
@@ -33,7 +49,7 @@ exports.delete_friend = function(req, res){
 
 //get all of user's chat with a particular person
 exports.get_chat = function(req, res){
-	Notification.find({$or: [{sender: req.param("username"), receiver: req.param("receiver")}, {sender: req.param("receiver"), receiver: req.param("username")}]}).sort({date: '-1'}).exec(function(err, users) {
+	Notification.find({$or: [{sender: req.param("username"), receiver: req.param("receiver")}, {sender: req.param("receiver"), receiver: req.param("username")}]}).exec(function(err, users) {
 		if(err)
 				{
 				console.log(err);

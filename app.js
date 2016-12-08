@@ -9,6 +9,7 @@ var express = require('express')
   , user = require('./routes/user')
   , stories = require('./routes/stories')
   , friends = require('./routes/friends')
+  , live = require('./routes/live')
   , notifications= require('./routes/notifications')
   , session = require('client-sessions')
   , index = require('./routes/index')
@@ -71,6 +72,13 @@ app.get('/friends',function(req, res){
 		   }
 	   });
 });
+app.get('/live',function(req, res){
+	ejs.renderFile('./views/insert_live.ejs',function(err, result) {
+		   if (!err) {
+		            res.end(result);
+		   }
+	   });
+});
 
 //All operations on friends.
 
@@ -80,8 +88,10 @@ app.post('/request_friend',friends.request_friend);
 app.get('/accept_friend',friends.accept_friend);
 //get all of user's friends who have addedd the user  			 fields needed= username
 app.get('/get_added_friends',friends.get_added_friends); 
-// gets all the user's friends that did not add the user as of now  fields needed= username
+// gets all the user's friends that did not add the user(pending sent by user) 	 fields needed= username
 app.get('/get_unadded_friends',friends.get_unadded_friends);
+// gets all users friend reuqests  									fields needed= username
+app.get('/get_friend_requests',friends.get_friend_requests);
 // this is to delete friend. Perform this when the user's friend request gets rejected   fields needed= username and friend_username
 app.get('/delete_friend',friends.delete_friend);
 
@@ -92,6 +102,8 @@ app.get('/delete_friend',friends.delete_friend);
 app.post('/insert_user',user.insert_user);
 // search if a user exists. During login                    fields needed username
 app.get('/check_user',user.check_user);
+// list all public user                                     no fields needed 
+app.get('/list_users',user.list_users);
 //change is_active user to false                            fields needed username
 app.get('/is_active_false_user',user.is_active_false_user); 
 //change is_active user to true                             fields needed username
@@ -136,7 +148,16 @@ app.get('/add_comments',stories.add_comments);
 //list 1 persons timeline                                             fields needed username
 app.get('/list_timeline',stories.list_timeline);
 
+//All operations on Live table (live notifications)
 
+// Insert in live (for testing only)                              fields needed username type data
+app.post('/insert_live',live.insert_live);
+// gets all the user's live unread stuff						fields needed username
+app.get('/get_users_live',live.get_users_live);
+// list full live database (FOR TESTING ONLY)                   no fields needed
+app.get('/list_live',live.list_live);
+// this is to delete usernames everything						fields needed username
+app.get('/delete_live',live.delete_live);
 
 
 

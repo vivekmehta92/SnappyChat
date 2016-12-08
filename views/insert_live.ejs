@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SnappyChat</title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+<div class="topbar js-topbar">
+  <div class="global-nav bg global-nav--newLoggedOut" data-section-term="top_nav">
+</div>
+</div>
+<br><br><br><br><br><br>
+<div class="sheet">
+<h1 align="center">Insert Live</h1><br>
+</div>
+<form action="/insert_live" class="signup" id="signup" method="post" align="center">
+<div class="textbox">
+<input id="username" name="username" type="text" maxlength="40" placeholder="username" required="True"><br><br>
+<input id="type" name="type" type="text" maxlength="40" placeholder="type" required="True"><br><br>
+<input id="data" type="text" name="data" autocomplete="off" placeholder="data" required="True"><br><br>
+<button type="submit" id="sign" class="button">Insert</button><br><br>
+</div></form><br><br>
+Write one of below in type field:<br>
+1) friend_request<br>
+2) notification<br><br>
+Write one of the below options in data field : <br>
+1) You have received a friend request from + add(username) <br>
+2) You have received a message from + add(username) <br><br>
+</body>
+</html>

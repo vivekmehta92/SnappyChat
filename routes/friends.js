@@ -1,5 +1,6 @@
 var Friends = require('./model/friends');
 var moment = require('moment');
+var Live = require('./model/live');
 
 
 // This will get triggered when a friend request has to be sent.
@@ -16,8 +17,24 @@ var friends = new Friends();
 					}
 				else
 					{
-					console.log(newfriend);
-					res.send(newfriend);
+					// console.log(newfriend);
+					// res.send(newfriend);
+					var live = new Live();
+					live.username = req.param("friend_username");
+					live.date = moment().format();
+					live.type = "friend_request";
+					live.data = "You have received a friend request from "+req.param("username");
+					live.save(function(err, newnotifys) {
+				if(err)
+					{
+					console.log(err);
+					}
+				else
+					{
+					console.log(newnotifys);
+					res.send(newnotifys);
+					}
+					});				
 					}
 			});			
 };
@@ -58,6 +75,21 @@ exports.get_added_friends = function(req, res){
 			else
 				{
 				console.log("friends that added the user are Fetched");
+				res.send(users);
+				}
+	});
+}; 
+
+//get all of user's friends who have requested him
+exports.get_friend_requests = function(req, res){
+	Friends.find({friend_username: req.param("username"), added: "no" }).sort({date: '-1'}).exec(function(err, users) {
+		if(err)
+				{
+				console.log(err);
+				}
+			else
+				{
+				console.log("Pending friend requests are fetched");
 				res.send(users);
 				}
 	});
