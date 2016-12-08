@@ -122,6 +122,8 @@ app.get('/search_user_username',user.search_user_username);
 app.get('/search_user_email',user.search_user_email);
 //search users on basis the username                          fields needed search
 app.get('/search_user_interests',user.search_user_interests);
+// edit users profile, update profile 						fields needed(all not needed) fullname username email profile_pic profession location about interests account_type thumbnail_profile_pic  is_active				
+app.get('/edit_profile', user.edit_profile);
 
 
 //All operations on notificaitons table(All chat related stuff)
