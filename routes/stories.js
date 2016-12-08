@@ -91,7 +91,7 @@ exports.list_timeline = function(req, res){
 
 
 
-exports.get_timeline = function(req,res){
+exports.get_Timeline = function(req,res){
     // friend.find({username: req.param("username"), added: "yes"}).exec(function(err, users) {
     	friend.find({$or: [{username: req.param("username"), added: "yes" }, {friend_username: req.param("username"), added: "yes"} ]}).exec(function(err, users) {
         if(err)
