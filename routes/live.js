@@ -30,8 +30,13 @@ exports.get_users_live = function(req, res){
 				}
 			else
 				{
-				console.log("Users live data Fetched");
-				res.send(users);
+					Live.remove({ username : req.param("username")}, function (err, results) {
+					  if (err) return handleError(err);
+					  console.log("live Deleted");
+					  res.send(users);
+					});
+				// console.log("Users live data Fetched");
+				// res.send(users);
 				}
 	});
 };

@@ -1,6 +1,9 @@
 var Stories = require('./model/stories');
 var moment = require('moment');
-var friend = require('./model/friends')
+var friend = require('./model/friends');
+
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport('smtps://vivekmehta92%40gmail.com:Sergioramos123@smtp.gmail.com');
 
 //add a stories into timeline (TEXT STORY)
 exports.insert_text_stories = function(req, res){
@@ -35,8 +38,23 @@ exports.insert_picture_stories = function(req, res){
 					}
 				else
 					{
-					console.log(newstory);
-					res.send(newstory);
+						var mailOptions = {
+				    from: '"No-Reply(SnappyChat)" <vivekmehta92@gmail.com>', // sender address 
+				    to: 'prashu16k@gmail.com',//req.param("friend_username"), // list of receivers 
+				    subject: 'Friend Request from Snappy Chat', // Subject line 
+				    text: 'You have received a friend request from'+req.param("username"), // plaintext body 
+				    html: '<h1>CMPE277 🐴</h1>' // html body 
+				};
+				// send mail with defined transport object 
+				transporter.sendMail(mailOptions, function(error, info){
+				    if(error){
+				        console.log(error);
+				    }
+				    console.log('Message sent: ' + info);
+				res.send(200);
+				});
+					// console.log(newstory);
+					// res.send(newstory);
 					}
 			});		
 };

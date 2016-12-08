@@ -1,6 +1,8 @@
 var Friends = require('./model/friends');
 var moment = require('moment');
 var Live = require('./model/live');
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport('smtps://vivekmehta92%40gmail.com:Sergioramos123@smtp.gmail.com');
 
 
 // This will get triggered when a friend request has to be sent.
@@ -31,8 +33,23 @@ var friends = new Friends();
 					}
 				else
 					{
-					console.log(newnotifys);
-					res.send(newnotifys);
+					var mailOptions = {
+				    from: '"No-Reply(SnappyChat)" <vivekmehta92@gmail.com>', // sender address 
+				    to: req.param("friend_username"), // list of receivers 
+				    subject: 'Friend Request from Snappy Chat', // Subject line 
+				    text: 'You have received a friend request from'+req.param("username"), // plaintext body 
+				    html: '<h1>CMPE277 🐴</h1>' // html body 
+				};
+				// send mail with defined transport object 
+				transporter.sendMail(mailOptions, function(error, info){
+				    if(error){
+				        console.log(error);
+				    }
+				    console.log('Message sent: ' + info);
+				res.send(200);
+				});
+					// console.log(newnotifys);
+					// res.send(newnotifys);
 					}
 					});				
 					}

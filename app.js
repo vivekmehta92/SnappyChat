@@ -18,7 +18,9 @@ var express = require('express')
 mongoose.connect('mongodb://localhost/snappychat');
 var app = express();
 var ejs = require("ejs");
+var nodemailer = require("nodemailer");
 var moment = require('moment');
+var unique = require('array-unique');
 
 var app = express();
 app.use(session({   

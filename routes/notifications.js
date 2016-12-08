@@ -1,6 +1,7 @@
 var Notification = require('./model/notifications');
 var moment = require('moment');
 var Live = require('./model/live');
+var unique = require('array-unique');
 
 //send message to another user
 exports.insert_notification = function(req, res){
@@ -64,7 +65,7 @@ exports.get_chat = function(req, res){
 
 // get list of all people the user is chatting with
 exports.list_chats = function(req, res){
-	Notification.distinct('receiver', {$or: [{sender: req.param("username"),unread: false}, {receiver: req.param("username"), unread: false}]}).exec(function(err, users) {
+	Notification.find({$or: [{sender: req.param("username")}, {receiver: req.param("username")}]}).sort({date: '-1'}).exec(function(err, users) {
 		var arr1 = [];
 		if(err)
 				{
@@ -72,31 +73,21 @@ exports.list_chats = function(req, res){
 				}
 			else
 				{
-					for (var i = 0; i < users.length; i++) {
-						arr1[i] = users[i];
+					for (var i in users) {
+						if(users[i].sender != req.param("username"))
+						arr1[i] = users[i].sender;
+						else
+						arr1[i] = users[i].receiver;
 					}
-					Notification.distinct('receiver', {receiver: req.param("username"),unread: true}).exec(function(err, users1) {
-					var user = [];
-					if(err)
-					{
-					console.log(err);
-					}
-					else
-					{
-					
-					var array3 = uniqueArray(users1.reverse().concat(arr1.reverse()));
-					for(var i in users1){
-    					if(users1[i]==req.param("username")){
-        				users1.splice(i,1);
-        				break;
-        				}
-						}
-					res.send(array3);
-					}
-					});				
+					console.log(unique(arr1)); //=> ['a', 'b', 'c'] 
+					console.log(users);	
+					res.send(arr1);
+
+					// res.send(JSON.stringify(arr1));
 				}
 	});
 };
+
 function uniqueArray(array) {
     var a = array.concat();
     for(var i=0; i<a.length; ++i) {
