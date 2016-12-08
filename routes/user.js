@@ -30,6 +30,7 @@ exports.insert_user = function(req, res){
 
 // list full users table
 exports.list_users = function(req, res){
+	
 	User.find({account_type: "public"}).exec(function(err, users) {
 		if(err)
 				{

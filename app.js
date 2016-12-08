@@ -129,7 +129,7 @@ app.get('/search_user_interests',user.search_user_interests);
 //Send message to another user.                              fields needed sender receiver type data
 app.post('/insert_notification',notifications.insert_notification);
 //delete all messages between 2 users.                        fields needed username receiver
-app.get('/delete_friend',notifications.delete_friend);
+app.get('/delete_friend_chat',notifications.delete_friend);
 //get all of user's chat with a particular person             fields needed username receiver
 app.get('/get_chat',notifications.get_chat);
 // get list of all people the user is chatting with           fields needed username

@@ -41,7 +41,7 @@ var friends = new Friends();
 
 // This will get triggered when the friend request is accepted
 exports.accept_friend = function(req, res){
-  Friends.update({ username : req.param("username"), friend_username :  req.param("friend_username")}, { $set: { added: 'yes' }}, { new: true }, function (err, results) {
+  Friends.update({ friend_username : req.param("username"), username :  req.param("friend_username")}, { $set: { added: 'yes' }}, { new: true }, function (err, results) {
   if (err) console.log(err);
   // console.log("friend Added");
   // res.send(results);
