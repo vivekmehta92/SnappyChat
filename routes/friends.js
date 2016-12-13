@@ -7,11 +7,19 @@ var transporter = nodemailer.createTransport('smtps://vivekmehta92%40gmail.com:S
 
 // This will get triggered when a friend request has to be sent.
 exports.request_friend = function(req, res){
+console.log(req.param("friend_username"));
+console.log(req.param("username"));
+
 var friends = new Friends();
+			var abc = req.param("friend_username");
+			var def = "You have received a friend request from "+req.param("username");
 			friends.username = req.param("username");
 			friends.friend_username = req.param("friend_username");
 			friends.added = "no";
 			friends.date = moment().format();
+			console.log("2");
+			console.log(req.param("friend_username"));
+			
 			friends.save(function(err, newfriend) {
 				if(err)
 					{
@@ -33,12 +41,14 @@ var friends = new Friends();
 					}
 				else
 					{
+						console.log(req.param("friend_username"));
+						console.log("4");
 					var mailOptions = {
 				    from: '"No-Reply(SnappyChat)" <vivekmehta92@gmail.com>', // sender address 
-				    to: req.param("friend_username"), // list of receivers 
+				    to: abc, // list of receivers 
 				    subject: 'Friend Request from Snappy Chat', // Subject line 
-				    text: 'You have received a friend request from'+req.param("username"), // plaintext body 
-				    html: '<h1>CMPE277 🐴</h1>' // html body 
+				    text: def // plaintext body 
+				    //html: '<h1>CMPE277 🐴</h1>' // html body 
 				};
 				// send mail with defined transport object 
 				transporter.sendMail(mailOptions, function(error, info){

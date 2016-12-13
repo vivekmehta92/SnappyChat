@@ -151,8 +151,10 @@ app.get('/like_friend_story',stories.like_friend_story);
 app.get('/add_comments',stories.add_comments);
 //list 1 persons timeline                                             fields needed username
 app.get('/list_timeline',stories.list_timeline);
-//get timeline of all friends of user in order         fields needed  username
+//get timeline of all friends of user in order        				 fields needed  username
 app.get('/get_timeline', stories.get_Timeline);
+//Fetch comments of a particular story 								fields needed s_id
+app.get('/fetch_comments', stories.fetch_comments);
 
 //All operations on Live table (live notifications)
 

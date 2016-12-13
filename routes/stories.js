@@ -107,6 +107,20 @@ exports.list_timeline = function(req, res){
 	});
 };
 
+//Fetch comments of a particular story
+exports.fetch_comments = function(req, res){
+	Stories.find({s_id: req.param("s_id")}).sort({timestamp: '-1'}).exec(function(err, users) {
+		if(err)
+				{
+				console.log(err);
+				}
+			else
+				{
+				console.log("timeline list Fetched");
+				res.send(users);
+				}
+	});
+};
 
 
 exports.get_Timeline = function(req,res){
