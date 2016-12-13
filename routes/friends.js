@@ -3,24 +3,29 @@ var moment = require('moment');
 var Live = require('./model/live');
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport('smtps://vivekmehta92%40gmail.com:Sergioramos123@smtp.gmail.com');
+var User = require('./model/user');
 
 
 // This will get triggered when a friend request has to be sent.
 exports.request_friend = function(req, res){
-console.log(req.param("friend_username"));
-console.log(req.param("username"));
-
-var friends = new Friends();
+			User.find({username: req.param("friend_username")}).exec(function(err, users) {
+		if(err)
+				{
+				console.log(err);
+				}
+			else
+				{
+				var friends = new Friends();
 			var abc = req.param("friend_username");
-			var def = "You have received a friend request from "+req.param("username");
+			var def = "You have received a friend request from "+req.param("fullname");
 			friends.username = req.param("username");
 			friends.friend_username = req.param("friend_username");
 			friends.added = "no";
 			friends.date = moment().format();
-			console.log("2");
-			console.log(req.param("friend_username"));
-			
-			friends.save(function(err, newfriend) {
+			friends.fullname = req.param("fullname");			
+			friends.friend_fullname = users[0].fullname;
+				console.log("friends fullname= "+users[0].fullname);
+				friends.save(function(err, newfriend) {
 				if(err)
 					{
 					console.log(err);
@@ -31,6 +36,7 @@ var friends = new Friends();
 					// res.send(newfriend);
 					var live = new Live();
 					live.username = req.param("friend_username");
+					live.friend_fullname = newfriend[0].fullname;
 					live.date = moment().format();
 					live.type = "friend_request";
 					live.data = "You have received a friend request from "+req.param("username");
@@ -42,7 +48,6 @@ var friends = new Friends();
 				else
 					{
 						console.log(req.param("friend_username"));
-						console.log("4");
 					var mailOptions = {
 				    from: '"No-Reply(SnappyChat)" <vivekmehta92@gmail.com>', // sender address 
 				    to: abc, // list of receivers 
@@ -63,7 +68,9 @@ var friends = new Friends();
 					}
 					});				
 					}
-			});			
+			});	
+				}
+	});		
 };
 
 // This will get triggered when the friend request is accepted

@@ -6,6 +6,7 @@ autoIncrement.initialize(connection);
 var l_schema = mongoose.Schema({
 	l_id: {type: Number, required: true, index: true},
 	username: String,
+	friend_fullname: String,
 	type: String,
 	data: String,
 	date: Date

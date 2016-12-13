@@ -78,6 +78,22 @@ exports.check_user = function(req, res){
 	});
 };
 
+// List all rows in user table
+exports.list_all_users = function(req, res){
+	User.find().exec(function(err, users) {
+		if(err)
+				{
+				console.log(err);
+				}
+			else
+				{
+				console.log("users Fetched");
+				//req.session.username = users.username;
+				res.send(users);
+				}
+	});
+};
+
 //change is_active user to false
 exports.is_active_false_user = function(req, res){
   User.update({ username : req.param("username")}, { $set: { isActive: "false" }}, { new: true }, function (err, results) {

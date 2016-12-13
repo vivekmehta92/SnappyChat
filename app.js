@@ -84,7 +84,7 @@ app.get('/live',function(req, res){
 
 //All operations on friends.
 
-// This will get triggered when a friend request has to be sent. fields needed= username and friend_username
+// This will get triggered when a friend request has to be sent. fields needed= username and friend_username and fullname(the current users fullname)
 app.post('/request_friend',friends.request_friend);
 // This will get triggered when the friend request is accepted   fields needed= username and friend_username
 app.get('/accept_friend',friends.accept_friend);
@@ -106,6 +106,8 @@ app.post('/insert_user',user.insert_user);
 app.get('/check_user',user.check_user);
 // list all public users except his friends                 fields needed username  
 app.get('/list_other_users',user.list_other_users);
+// list all users  							                fields not needed
+app.get('/list_all_users',user.list_all_users);  
 //change is_active user to false                            fields needed username
 app.get('/is_active_false_user',user.is_active_false_user); 
 //change is_active user to true                             fields needed username

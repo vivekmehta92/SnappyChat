@@ -5,6 +5,8 @@ autoIncrement.initialize(connection);
 var f_schema = mongoose.Schema({
 	f_id: {type: Number, required: true, index: true},
 	username: String,
+	fullname: String,
+	friend_fullname: String,
 	friend_username: String,
 	added: String,
 	date: Date
