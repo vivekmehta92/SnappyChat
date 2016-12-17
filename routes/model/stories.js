@@ -8,7 +8,7 @@ var s_schema = mongoose.Schema({
 	username: String,
 	text: String,
 	pictures: String,
-	likes: Number,
+	likes: [String],
 	comments: [String],
 	timestamp: Date
 });

@@ -61,23 +61,32 @@ exports.insert_picture_stories = function(req, res){
 
 // Like a friends story
 exports.like_friend_story = function(req, res){
-  Stories.find({ username : req.param("username"),s_id: req.param("s_id")}, function (err, results) {
-  if (err) console.log(err);
-  // console.log("friend Added");
-  // res.send(results);
-  else{
-  	console.log(results[0].likes);
-  	var like = parseInt(results[0].likes) + 1;
-  	console.log(like);
-  	Stories.update({ username : req.param("username"),s_id: req.param("s_id")}, { $set: { likes: like }}, { new: true }, function (err, results) {
-  if (err) console.log(err);
-  else{
-		console.log(results);
-		res.send(results);
-	  }
-	});	
-  }
-});	
+//add comments
+Stories.update({username: req.param("username"),s_id: req.param("s_id")}, {"$push": {likes: req.param("likes")}},function(err,results){
+        if(err){
+        	console.log(err)
+        }else{	
+        		console.log(results);
+				res.send(results);	
+        }
+});
+//   Stories.find({ username : req.param("username"),s_id: req.param("s_id")}, function (err, results) {
+//   if (err) console.log(err);
+//   // console.log("friend Added");
+//   // res.send(results);
+//   else{
+//   	console.log(results[0].likes);
+//   	var like = parseInt(results[0].likes) + 1;
+//   	console.log(like);
+//   	Stories.update({ username : req.param("username"),s_id: req.param("s_id")}, { $set: { likes: like }}, { new: true }, function (err, results) {
+//   if (err) console.log(err);
+//   else{
+// 		console.log(results);
+// 		res.send(results);
+// 	  }
+// 	});	
+//   }
+// });	
 };
 
 //add comments
