@@ -146,7 +146,7 @@ app.get('/list_chats',notifications.list_chats);
 //add a stories into timeline (TEXT STORY)                     fields needed username text
 app.post('/insert_text_stories',stories.insert_text_stories); 
 //post a pictures story into timeline                           fields needed username pictures
-app.get('/insert_picture_stories',stories.insert_picture_stories);
+app.post('/insert_picture_stories',stories.insert_picture_stories);
 // Like a friends story                                             fields needed username s_id
 app.get('/like_friend_story',stories.like_friend_story);
 //add comments                                                      fields needed username s_id comments
