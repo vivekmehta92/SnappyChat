@@ -2,7 +2,7 @@ var Friends = require('./model/friends');
 var moment = require('moment');
 var Live = require('./model/live');
 var nodemailer = require('nodemailer');
-var transporter = nodemailer.createTransport('smtps://vivekmehta92%40gmail.com:Sergioramos123@smtp.gmail.com');
+var transporter = nodemailer.createTransport('smtps://nayalgoel%40gmail.com:shimisawesome@smtp.gmail.com');
 var User = require('./model/user');
 
 
@@ -15,14 +15,15 @@ exports.request_friend = function(req, res){
 				}
 			else
 				{
+					console.log("blah blah");
 				var friends = new Friends();
-			var abc = req.param("friend_username");
+			
 			var def = "You have received a friend request from "+req.param("fullname");
 			friends.username = req.param("username");
 			friends.friend_username = req.param("friend_username");
 			friends.added = "no";
 			friends.date = moment().format();
-			friends.fullname = req.param("fullname");			
+			friends.fullname = req.param("fullname");		
 			friends.friend_fullname = users[0].fullname;
 				console.log("friends fullname= "+users[0].fullname);
 				friends.save(function(err, newfriend) {
@@ -36,7 +37,7 @@ exports.request_friend = function(req, res){
 					// res.send(newfriend);
 					var live = new Live();
 					live.username = req.param("friend_username");
-					live.friend_fullname = newfriend[0].fullname;
+					live.friend_fullname = users[0].fullname;
 					live.date = moment().format();
 					live.type = "friend_request";
 					live.data = "You have received a friend request from "+req.param("username");
@@ -48,8 +49,9 @@ exports.request_friend = function(req, res){
 				else
 					{
 						console.log(req.param("friend_username"));
+						var abc = users[0].email;
 					var mailOptions = {
-				    from: '"No-Reply(SnappyChat)" <vivekmehta92@gmail.com>', // sender address 
+				    from: '"No-Reply(SnappyChat)" <nayalgoel@gmail.com>', // sender address 
 				    to: abc, // list of receivers 
 				    subject: 'Friend Request from Snappy Chat', // Subject line 
 				    text: def // plaintext body 
