@@ -113,7 +113,11 @@ app.get('/is_active_false_user',user.is_active_false_user);
 //change is_active user to true                             fields needed username
 app.get('/is_active_true_user',user.is_active_true_user);
 //update profile pic                                        fields needed username profile_pic
-app.get('/update_profile_pic',user.update_profile_pic);
+app.post('/update_profile_pic',user.update_profile_pic);
+//update about                                        fields needed username about
+app.get('/update_about',user.update_about);
+//update profession                                       fields needed username profession
+app.get('/update_profession',user.update_profession);
 //update account type                                       fields needed username account_type
 app.get('/update_account_type',user.update_account_type);
 //update thumbnail profile pic                              fields needed username thumbnail_profile_pic     
@@ -148,9 +152,9 @@ app.post('/insert_text_stories',stories.insert_text_stories);
 //post a pictures story into timeline                           fields needed username pictures
 app.post('/insert_picture_stories',stories.insert_picture_stories);
 // Like a friends story                                             fields needed username s_id
-app.get('/like_friend_story',stories.like_friend_story);
+app.post('/like_friend_story',stories.like_friend_story);
 //add comments                                                      fields needed username s_id comments
-app.get('/add_comments',stories.add_comments);
+app.post('/add_comments',stories.add_comments);
 //list 1 persons timeline                                             fields needed username
 app.get('/list_timeline',stories.list_timeline);
 //get timeline of all friends of user in order        				 fields needed  username

@@ -3,7 +3,7 @@ var moment = require('moment');
 var friend = require('./model/friends');
 
 var nodemailer = require('nodemailer');
-var transporter = nodemailer.createTransport('smtps://vivekmehta92%40gmail.com:Sergioramos123@smtp.gmail.com');
+var transporter = nodemailer.createTransport('smtps://nayalgoel%40gmail.com:shimisawesome@smtp.gmail.com');
 
 //add a stories into timeline (TEXT STORY)
 exports.insert_text_stories = function(req, res){
@@ -30,6 +30,8 @@ exports.insert_picture_stories = function(req, res){
 	var stories = new Stories();
 			stories.username = req.param("username");
 			stories.pictures = req.param("pictures");
+			var abc = req.param("username");
+			var def = 'You have received a friend request from'+req.param("username");
 			stories.timestamp = moment().format();
 			stories.save(function(err, newstory) {
 				if(err)
@@ -39,11 +41,10 @@ exports.insert_picture_stories = function(req, res){
 				else
 					{
 						var mailOptions = {
-				    from: '"No-Reply(SnappyChat)" <vivekmehta92@gmail.com>', // sender address 
-				    to: 'prashu16k@gmail.com',//req.param("friend_username"), // list of receivers 
+				    from: '"No-Reply(SnappyChat)" <nayalgoel@gmail.com>', // sender address 
+				    to: abc,//req.param("friend_username"), // list of receivers 
 				    subject: 'Friend Request from Snappy Chat', // Subject line 
-				    text: 'You have received a friend request from'+req.param("username"), // plaintext body 
-				    html: '<h1>CMPE277 🐴</h1>' // html body 
+				    text: def, // plaintext body 
 				};
 				// send mail with defined transport object 
 				transporter.sendMail(mailOptions, function(error, info){
@@ -62,7 +63,7 @@ exports.insert_picture_stories = function(req, res){
 // Like a friends story
 exports.like_friend_story = function(req, res){
 //add comments
-Stories.update({username: req.param("username"),s_id: req.param("s_id")}, {"$push": {likes: req.param("likes")}},function(err,results){
+Stories.update({s_id: req.param("s_id")}, {"$push": {likes: req.param("username")}},function(err,results){
         if(err){
         	console.log(err)
         }else{	

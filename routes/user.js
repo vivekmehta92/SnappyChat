@@ -154,6 +154,36 @@ exports.update_account_type = function(req, res){
 });		
 };
 
+//update about me
+exports.update_about = function(req, res){
+  User.update({ username : req.param("username")}, { $set: { about: req.param("about") }}, { new: true }, function (err, results) {
+  	if(err)
+	{
+	console.log(err);
+	}
+	else
+	{
+	console.log(results);
+	res.send(results);
+	}
+});		
+};
+
+//update profession
+exports.update_profession = function(req, res){
+  User.update({ username : req.param("username")}, { $set: { profession: req.param("profession") }}, { new: true }, function (err, results) {
+  	if(err)
+	{
+	console.log(err);
+	}
+	else
+	{
+	console.log(results);
+	res.send(results);
+	}
+});		
+};
+
 //update thumbnail profile pic
 exports.update_thumbail_profile_pic = function(req, res){
   User.update({ username : req.param("username")}, { $set: { thumbnail_profile_pic: req.param("thumbnail_profile_pic") }}, { new: true }, function (err, results) {
@@ -191,7 +221,7 @@ exports.add_interests = function(req, res){
 		interests.push(str_interests.substring(start,commas[i]).trim())
 		start = Number(commas[i]) + 1;
 	}
-	interests.push(str_interests.substring(start,end).trim())
+	interests.push(str_interests.substring(start,end).trim());
 
 	for(i in interests){
 		User.update({"username": req.param("username")}, {"$push": {"interests": interests[i] }},function(err,results){
