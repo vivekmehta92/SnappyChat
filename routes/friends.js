@@ -15,7 +15,6 @@ exports.request_friend = function(req, res){
 				}
 			else
 				{
-					console.log("blah blah");
 				var friends = new Friends();
 			
 			var def = "You have received a friend request from "+req.param("fullname");
@@ -24,8 +23,16 @@ exports.request_friend = function(req, res){
 			friends.added = "no";
 			friends.date = moment().format();
 			friends.fullname = req.param("fullname");		
+			if(!users.length)
+			{
+				console.log("bachhe");
+				friends.friend_fullname = req.param("friend_username");
+			}
+			else
+			{
+			console.log("Chuda");
 			friends.friend_fullname = users[0].fullname;
-				console.log("friends fullname= "+users[0].fullname);
+			}
 				friends.save(function(err, newfriend) {
 				if(err)
 					{
@@ -37,7 +44,15 @@ exports.request_friend = function(req, res){
 					// res.send(newfriend);
 					var live = new Live();
 					live.username = req.param("friend_username");
+					if(!users.length)
+					{
+					live.friend_fullname = req.param("friend_username");
+					}
+					else
+					{
 					live.friend_fullname = users[0].fullname;
+					}
+					
 					live.date = moment().format();
 					live.type = "friend_request";
 					live.data = "You have received a friend request from "+req.param("username");
@@ -49,6 +64,8 @@ exports.request_friend = function(req, res){
 				else
 					{
 						console.log(req.param("friend_username"));
+						if(users.length)
+					{
 						var abc = users[0].email;
 					var mailOptions = {
 				    from: '"No-Reply(SnappyChat)" <nayalgoel@gmail.com>', // sender address 
@@ -65,6 +82,11 @@ exports.request_friend = function(req, res){
 				    console.log('Message sent: ' + info);
 				res.send(200);
 				});
+			}
+			else
+			{
+				res.send(200)
+			}
 					// console.log(newnotifys);
 					// res.send(newnotifys);
 					}

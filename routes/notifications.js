@@ -50,7 +50,7 @@ exports.delete_friend = function(req, res){
 
 //get all of user's chat with a particular person
 exports.get_chat = function(req, res){
-	Notification.find({$or: [{sender: req.param("username"), receiver: req.param("receiver")}, {sender: req.param("receiver"), receiver: req.param("username")}]}).exec(function(err, users) {
+	Notification.find({$or: [{sender: req.param("username"), receiver: req.param("receiver")}, {sender: req.param("receiver"), receiver: req.param("username")}]}).sort({date: '1'}).exec(function(err, users) {
 		if(err)
 				{
 				console.log(err);
